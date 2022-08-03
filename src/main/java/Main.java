@@ -7,7 +7,7 @@ public class Main {
         double h = scn.nextDouble();                                                            //Height input
         System.out.println("What's the Length in meters?");
         double l = scn.nextDouble();                                                            //Length input
-        System.out.println("How many coats do you want to apply?");
+        System.out.println("How many coats do you want to apply?");     //committeed version
         int num = scn.nextInt();                                                                //Coats input
         System.out.println("The amount of paint required is: "+ litres(h,l, num) +" Litres");   //Final output (How many litres the user needs)
     }
