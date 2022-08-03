@@ -10,9 +10,10 @@ public class Main {
         System.out.println("How many coats do you want to apply?");
         int num = scn.nextInt();                                                                //Coats input
         System.out.println("The amount of paint required is: "+ litres(h,l, num) +" Litres");   //Final output (How many litres the user needs)
+        //rythrhrthrth
     }
 
-    public static double wallSize(double h, double l){
+    public static double wallSize(double h, double l){              //New Commit
         double size = h*l;                                                                      //Height multiplied by Length
         return size;
     }
