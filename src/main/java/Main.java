@@ -1,9 +1,9 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    static int needsPainting = 0;
-    static int dontPaint = 0;
+    static double litres;
+    static double needsPainting = 0;
+    static double dontPaint = 0;
     static int wallCounter = 1;
     static Dulux d;
     static Johnstones j;
@@ -39,6 +39,8 @@ public class Main {
                 }
             };
 
+            litres = ((needsPainting - dontPaint)/12D)*coats;
+
             System.out.println("What brand of paint are you using?\n" +
                     "-----------------\n" +
                     "1: Dulux\n" +
@@ -50,26 +52,31 @@ public class Main {
 
             boolean bool = false;
             String brand = "";
+            String cheap = "";
             while (bool != true) {
                 switch (scn.nextInt()) {
                     case 1:
                         brand = "Dulux";
                         d = new Dulux(new double[]{2.5, 5, 10}, new double[]{20, 32, 50});                       //https://www.diy.com/search?term=dulux+emulsion+paint
+                        cheap = calcCheap(d);
                         bool = true;
                         break;
                     case 2:
                         brand = "Johnstones";
                         j = new Johnstones(new double[]{2.5, 5, 10}, new double[]{13, 20, 30});                 //https://www.argos.co.uk/search/johnstones/?clickOrigin=searchbar:search:term:johnstones
+                        cheap = calcCheap(j);
                         bool = true;
                         break;
                     case 3:
                         brand = "Mylands";
-                    m = new Mylands(new double[]{2.5, 5}, new double[]{55.50, 98});                             //https://www.paint-paper.co.uk/product-category/paint/mylands-paint/mylands-interior-finishes/marble-matt-emulsion/
+                        m = new Mylands(new double[]{2.5, 5}, new double[]{55.50, 98});                             //https://www.paint-paper.co.uk/product-category/paint/mylands-paint/mylands-interior-finishes/marble-matt-emulsion/
+                        cheap = calcCheap(m);
                         bool = true;
                         break;
                     case 4:
                         brand = "Crown Paints";
                         c = new CrownPaints(new double[]{2.5, 5, 10}, new double[]{16, 21, 32});                //https://www.wickes.co.uk/Crown-Matt-Emulsion-Paint---Brilliant-White---2-5L/p/266741?gclid=CjwKCAjw3K2XBhAzEiwAmmgrAuw4pkbu9HhnMV4ttw65v0pj_t3IS8dqKaOD9VZrZ7DyDW2VaAhJSxoCEacQAvD_BwE&gclsrc=aw.ds
+                        cheap = calcCheap(c);
                         bool = true;
                         break;
                     default:
@@ -77,12 +84,40 @@ public class Main {
                 }
             }
             System.out.println("Area to paint: "+ (needsPainting - dontPaint) +" square meters");
-            System.out.println("Litres: "+ (needsPainting - dontPaint)/12D);
-            System.out.println("The cheapest option would be: ");
+            System.out.println("Litres needed: "+ litres);                                                             //https://www.google.com/search?q=how+many+litres+of+paint+cover+a+square+metre&oq=how+many+litres+&aqs=chrome.0.69i59j69i57j0i20i263i433i512j0i512j0i433i512j0i20i263i512j0i433i512j0i512l3.3266j0j7&sourceid=chrome&ie=UTF-8
+            System.out.println("The cheapest option would be: "+cheap);
         }
         else{
             System.out.println("You don't need any paint.");
         }
+    }
+
+    public static String calcCheap(PaintTub p){
+        String cheapest = "";
+        for(int i = 0; i<p.getLitres().length; i++){
+            if(litres<p.getLitres()[i]){
+                cheapest = "1x "+p.getLitres()[i]+"L (£"+p.getPrice()[i]+")";
+                break;
+            }
+        }
+        if (litres>p.getLitres()[p.getLitres().length-1]){
+            int amt = (int) (litres/p.getLitres()[p.getLitres().length-1]);
+            cheapest = amt+"x "+p.getLitres()[p.getLitres().length-1]+"L (£"+p.getPrice()[p.getPrice().length-1]*amt+")";
+            double rem = litres%p.getLitres()[p.getLitres().length-1];
+            for(int i = 0; i<p.getLitres().length; i++){
+                if(rem<p.getLitres()[i]){
+                    if(p.getLitres()[i]==p.getLitres()[p.getLitres().length-1]){
+                        cheapest = (amt+1)+"x "+p.getLitres()[p.getLitres().length-1]+"L (£"+p.getPrice()[p.getPrice().length-1]*(amt+1)+")";
+                    }
+                    else{
+                        cheapest += ", 1x "+p.getLitres()[i]+"L (£"+p.getPrice()[i]+")";
+                    }
+                    break;
+                }
+            }
+
+        }
+        return cheapest;
     }
 
     public static String inputCheck(Scanner scn){
