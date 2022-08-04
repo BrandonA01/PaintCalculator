@@ -33,6 +33,7 @@ public class Main {
                 }
             };
             System.out.println("Area to paint: "+ (needsPainting - dontPaint) +" square meters");
+            System.out.println("Litres: "+ (needsPainting - dontPaint)/12D);
         }
         else{
             System.out.println("You don't need any paint.");
