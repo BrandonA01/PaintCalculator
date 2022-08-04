@@ -16,10 +16,10 @@ public class Main {
                     bool = true;
                     System.out.println("How many obstructions (doors/windows/sockets) are there?");
                     int obstructions = scn.nextInt();
-                    for(int i = 0; i<=obstructions; i++){
-                        System.out.println("What is the height of this obstruction in meters?");
+                    for(int i = 0; i<obstructions; i++){
+                        System.out.println("What is the height of obstruction "+(i+1)+" in meters?");
                         int heightObst = scn.nextInt();
-                        System.out.println("What is the Length of this obstruction in meters?");
+                        System.out.println("What is the Length of obstruction "+(i+1)+" in meters?");
                         int lengthObst = scn.nextInt();
                     }
                     break;
@@ -44,20 +44,20 @@ public class Main {
         System.out.println("The amount of paint required is: "+ litres(h,l, num) +" Litres");*/   //Final output (How many litres the user needs)
     }
     public static double litres(double h, double l, int coats){
-        double litres = (wallSizeRectangle(h,l)/12)*coats;                                               //Assuming 1 litre of paint covers 12 square meters
+        double litres = (rectangle(h,l)/12)*coats;                                               //Assuming 1 litre of paint covers 12 square meters
         return litres;
     }
-    public static double wallSizeRectangle(double h, double l){
+    public static double rectangle(double h, double l){
         double size = h*l;                                                                      //Height multiplied by Length
         return size;
     }
-    public static double wallSizeCircle(double h, double l){
+    /*public static double circle(double h, double l){
         double size;                                                                     //Height multiplied by Length
         return size;
-    }public static double wallSizeTriangle(double h, double l){
+    }public static double triangle(double h, double l){
         double size;                                                                     //Height multiplied by Length
         return size;
-    }
+    }*/
 
 
 }
