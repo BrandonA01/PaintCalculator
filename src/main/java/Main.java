@@ -12,13 +12,14 @@ public class Main {
         System.out.println("The amount of paint required is: "+ litres(h,l, num) +" Litres");   //Final output (How many litres the user needs)
     }
 
-    public static double wallSize(double h, double l){              //New Commit
-        double size = h*l;                                                                      //Height multiplied by Length
-        return size;
-    }
-
     public static double litres(double h, double l, int coats){
         double litres = (wallSize(h,l)/12)*coats;                                               //Assuming 1 litre of paint covers 12 square meters
         return litres;
     }
+
+    public static double wallSize(double h, double l){
+        double size = h*l;                                                                      //Height multiplied by Length
+        return size;
+    }
+
 }
