@@ -29,6 +29,19 @@ public class Main {
                     needsPainting += recWall.area();
                 }
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
             System.out.println("How many coats are you applying?");
             int coats = scn.nextInt();
             System.out.println("Are there any doors/windows/sockets/obstructions?   (Y/N)");
