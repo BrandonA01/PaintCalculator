@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);                                                   //New Scanner
-        System.out.println("How many walls are you painting?"); //need to ask whether they are all rectangular.
+        System.out.println("How many walls are you painting?");                         //need to ask whether they are all rectangular.
         int numWalls = scn.nextInt();
         System.out.println("How many coats are you applying?");
         int coats = scn.nextInt();
