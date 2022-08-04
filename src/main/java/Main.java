@@ -1,45 +1,45 @@
 import java.util.Scanner;
 
 public class Main {
-    static double litres;
-    static double needsPainting = 0;
-    static double dontPaint = 0;
-    static int wallCounter = 1;
+    static double litres;   //The amount of litres that the user needs
+    static double needsPainting = 0;    //The square meter area of the given walls
+    static double dontPaint = 0;    //The square meter area of the given obstructions
+    static int wallCounter = 1;     //Used to count how many walls already have a given area (+1 for every question)
     static Dulux d;
     static Johnstones j;
     static Mylands m;
     static CrownPaints c;
     public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);       //New Scanner
+        Scanner scn = new Scanner(System.in);                       //New Input Scanner
         System.out.println("How many walls are you painting?");
-        int numWalls = scn.nextInt();
-        if(numWalls>0){
+        int numWalls = scn.nextInt();                                   //Given number of walls the user intends to paint
+        if(numWalls>0){                                                 //Check if paint needs to even be applied
             System.out.println("Are there any walls that are not rectangular?");
             if(inputCheck(scn).equals("Y")) {
-                diffShape(scn, numWalls);
+                diffShape(scn, numWalls);                   //Checks the user input using the inputCheck method
             }
             else{
-                rectangle(numWalls, scn);
+                rectangle(numWalls, scn);                   //If no other shapes have been selected
             }
 
             System.out.println("How many coats are you applying?");
-            int coats = scn.nextInt();
+            int coats = scn.nextInt();                                                  //The amount of coats (Layers) that are being applied to the wall || (coats*(litres for one coat))
 
-            System.out.println("Are there any doors/windows/sockets/obstructions?");
+            System.out.println("Are there any doors/windows/sockets/obstructions?");        //obstructions could be a window, door, or any object that doesn't need to be painted
             if(inputCheck(scn).equals("Y")){
                 System.out.println("How many obstructions (doors/windows/sockets) are there?");
                 int obstructions = scn.nextInt();
-                for(int i = 0; i<obstructions; i++){
+                for(int i = 0; i<obstructions; i++){                                                    //get area of every obstruction
                     System.out.println("What is the height of obstruction "+(i+1)+" in meters?");
                     double heightObst = scn.nextDouble();
                     System.out.println("What is the Length of obstruction "+(i+1)+" in meters?");
                     double lengthObst = scn.nextDouble();
                     Rectangle obstr = new Rectangle(heightObst, lengthObst);
-                    dontPaint += obstr.area();
+                    dontPaint += obstr.area();                                                          // add the obstruction's area to dontPaint
                 }
             };
 
-            litres = ((needsPainting - dontPaint)/12D)*coats;
+            litres = ((needsPainting - dontPaint)/12D)*coats;                                           //calculates the total paint needed by taking away the obstructions surface area from the wall
 
             System.out.println("What brand of paint are you using?\n" +
                     "-----------------\n" +
@@ -48,17 +48,17 @@ public class Main {
                     "3: Mylands\n" +
                     "4: Crown Paints\n" +
                     "-----------------\n" +
-                    "Note: Enter the number associated with the brand.");
+                    "Note: Enter the number associated with the brand.");                       //Each brand has different prices
 
             boolean bool = false;
             String brand = "";
             String cheap = "";
             while (bool != true) {
-                switch (scn.nextInt()) {
+                switch (scn.nextInt()) {                                                            //PaintTub(litres[], prices[])
                     case 1:
                         brand = "Dulux";
                         d = new Dulux(new double[]{2.5, 5, 10}, new double[]{20, 32, 50});                       //https://www.diy.com/search?term=dulux+emulsion+paint
-                        cheap = calcCheap(d);
+                        cheap = calcCheap(d);                                                                    //returns a String
                         bool = true;
                         break;
                     case 2:
@@ -92,7 +92,7 @@ public class Main {
         }
     }
 
-    public static String calcCheap(PaintTub p){
+    public static String calcCheap(PaintTub p){                                                         //Method to calculate the cheapest way to get the amount of litres in paint cans
         String cheapest = "";
         for(int i = 0; i<p.getLitres().length; i++){
             if(litres<p.getLitres()[i]){
@@ -120,7 +120,7 @@ public class Main {
         return cheapest;
     }
 
-    public static String inputCheck(Scanner scn){
+    public static String inputCheck(Scanner scn){                                                           //Method to check the input of the scanner (Y/N)
         boolean bool = false;
         String result = "";
         while(bool==false){
@@ -136,7 +136,7 @@ public class Main {
         return result.toUpperCase();
     }
     public static void diffShape(Scanner scn, int numWalls) {
-        System.out.println("Which shape from the selection is the wall:\n1: Circle\n2: Triangle\nNote: Enter the number associated with the shape.");
+        System.out.println("Which shape from the selection is the wall:\n1: Circle\n2: Triangle\nNote: Enter the number associated with the shape.");       //Method used for different wall shapes other than rectangle, can be extended to include more shapes.
         boolean bool = false;
         String wallShape = "";
         while (bool != true) {
@@ -167,10 +167,10 @@ public class Main {
         wallCounter += numWallsDiff;
         for (int i = 0; i < numWallsDiff; i++) {
             if (wallShape.equals("Circle")) {
-                System.out.println("What is the diameter of wall " + (i + 1) + " in meters?");
+                System.out.println("What is the diameter of wall " + (i + 1) + " in meters?");              //Circle
                 Circle c = new Circle(scn.nextDouble());
                 needsPainting += c.area();
-            } else {
+            } else {                                                                                        //Triangle
                 System.out.println("What is the height of wall " + (i + 1) + " in meters?");
                 double heightWall = scn.nextDouble();
                 System.out.println("What is the Length of wall " + (i + 1) + " in meters?");
@@ -179,14 +179,14 @@ public class Main {
                 needsPainting += t.area();
             }
         }
-        System.out.println("Are there anymore walls that are not rectangular?");
+        System.out.println("Are there anymore walls that are not rectangular?");                            //If the user has circles and triangles...
         if (inputCheck(scn).equals("Y")) {
             diffShape(scn, numWalls);
-        } else {
+        } else {                                                                                            //Else, use the remainder of the walls (wallCounter) as rectangles
             rectangle(numWalls, scn);
         }
     }
-    public static void rectangle(int numWalls, Scanner scn){
+    public static void rectangle(int numWalls, Scanner scn){                                                //Method to calculate a rectangle/square wall
         for(int i = 0; i<numWalls; i++){
             System.out.println("What is the height of wall "+(i+1)+" in meters?");
             double heightWall = scn.nextDouble();
