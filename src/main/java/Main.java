@@ -1,17 +1,38 @@
 import java.util.Scanner;
 
 public class Main {
-    int needsPainting = 0;
+    static int needsPainting = 0;
     static int dontPaint = 0;
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);                                                   //New Scanner
         System.out.println("How many walls are you painting?");                         //need to ask whether they are all rectangular.
         int numWalls = scn.nextInt();
-        if(numWalls!=0){
+        if(numWalls>0){
+            System.out.println("Are there any walls that are not rectangular?   (Y/N)");
+            if(inputCheck(scn.next()).equals("Y")) {
+                diffShape(scn);
+                System.out.println("How many walls are this shape?");
+                if(scn.nextInt() > numWalls){
+                    System.out.println("You aren't painting that many walls.");
+                }
+                else{
+
+                }
+            }
+            else{
+                for(int i = 0; i<numWalls; i++){
+                    System.out.println("What is the height of wall "+(i+1)+" in meters?");
+                    int heightObst = scn.nextInt();
+                    System.out.println("What is the Length of wall "+(i+1)+" in meters?");
+                    int lengthObst = scn.nextInt();
+                    Rectangle recWall = new Rectangle(heightObst, lengthObst);
+                    needsPainting += recWall.area();
+                }
+            }
             System.out.println("How many coats are you applying?");
             int coats = scn.nextInt();
             System.out.println("Are there any doors/windows/sockets/obstructions?   (Y/N)");
-            if(inputCheck(scn).equals("Y")){
+            if(inputCheck(scn.next()).equals("Y")){
                 System.out.println("How many obstructions (doors/windows/sockets) are there?");
                 int obstructions = scn.nextInt();
                 for(int i = 0; i<obstructions; i++){
@@ -24,53 +45,42 @@ public class Main {
                 }
             };
             System.out.println(dontPaint);
+            System.out.println("Amount Needed to paint: "+ needsPainting +" square meters");
         }
         else{
             System.out.println("You do not need any paint.");
         }
-
-        /*System.out.println("What's the Height in meters?");
-        double h = scn.nextDouble();                                                            //Height input
-        System.out.println("What's the Length in meters?");
-        double l = scn.nextDouble();                                                            //Length input
-        System.out.println("How many coats do you want to apply?");
-        int num = scn.nextInt();                                                                //Coats input
-        System.out.println("The amount of paint required is: "+ litres(h,l, num) +" Litres");*/   //Final output (How many litres the user needs)
     }
 
-    public static String inputCheck(Scanner scn){
+    public static String inputCheck(String scn){
         boolean bool = false;
-        while(!bool){
-            switch(scn.next().toUpperCase()) {
-                case "Y":
-                    System.out.println("Yes");
-                    bool = true;
-                    break;
-                case "N":
-                    System.out.println("No");
+        while(bool!=true){
+            switch(scn.toUpperCase()) {
+                case "Y", "N":
                     bool = true;
                     break;
                 default:
                     System.out.println("Please use the inputs: (Y/N)");
             }
         }
-        return scn.next().toUpperCase();
+        return scn.toUpperCase();
     }
-    public static double litres(double h, double l, int coats){
-        double litres = (rectangle(h,l)/12)*coats;                                               //Assuming 1 litre of paint covers 12 square meters
-        return litres;
+    public static void diffShape(Scanner scn){
+        System.out.println("Which shape from the selection is the wall:\n1: Circle\n2: Triangle\nNote: Enter the number associated with the shape.");
+        boolean bool = false;
+        while(bool!=true){
+            switch(scn.nextInt()) {
+                case 1:
+                    //Circle
+                    bool = true;
+                    break;
+                case 2:
+                    //Triangle
+                    bool = true;
+                    break;
+                default:
+                    System.out.println("Please use the numbers associated with the shapes.");
+            }
+        }
     }
-    public static double rectangle(double h, double l){
-        double size = h*l;                                                                      //Height multiplied by Length
-        return size;
-    }
-    /*public static double circle(double h, double l){
-        double size;                                                                     //Height multiplied by Length
-        return size;
-    }public static double triangle(double h, double l){
-        double size;                                                                     //Height multiplied by Length
-        return size;
-    }*/
-
-
 }
