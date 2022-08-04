@@ -1,23 +1,23 @@
 public class Rectangle extends Shape{
-    private double width;
+    private double height;
     private double length;
 
-    public Rectangle(double width, double length) {
-        this.width = width;
+    public Rectangle(double height, double length) {
+        this.height = height;
         this.length = length;
     }
 
     @Override
     public double area() {
-        return width * length;
+        return height * length;
     }
 
-    public double getWidth() {
-        return width;
+    public double getheight() {
+        return height;
     }
 
-    public void setWidth(double width) {
-        this.width = width;
+    public void setheight(double height) {
+        this.height = height;
     }
 
     public double getLength() {
