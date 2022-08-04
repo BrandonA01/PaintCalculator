@@ -1,11 +1,26 @@
-public class PaintTub {
-    String colour;
-    int litres;
-    double price;
+public abstract class PaintTub {
+    private double[] litres;
 
-    public PaintTub(String colour, int litres, double price){
-        this.colour = colour;
+    private double[] price;
+
+    public PaintTub(double[] litres, double[] price){
         this.litres = litres;
+        this.price = price;
+    }
+
+    public double[] getLitres() {
+        return litres;
+    }
+
+    public void setLitres(double[] litres) {
+        this.litres = litres;
+    }
+
+    public double[] getPrice() {
+        return price;
+    }
+
+    public void setPrice(double[] price) {
         this.price = price;
     }
 }
