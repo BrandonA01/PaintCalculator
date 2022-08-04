@@ -10,14 +10,7 @@ public class Main {
         if(numWalls>0){
             System.out.println("Are there any walls that are not rectangular?   (Y/N)");
             if(inputCheck(scn.next()).equals("Y")) {
-                diffShape(scn);
-                System.out.println("How many walls are this shape?");
-                if(scn.nextInt() > numWalls){
-                    System.out.println("You aren't painting that many walls.");
-                }
-                else{
-
-                }
+                diffShape(scn, numWalls);
             }
             else{
                 for(int i = 0; i<numWalls; i++){
@@ -78,7 +71,7 @@ public class Main {
         }
         return scn.toUpperCase();
     }
-    public static void diffShape(Scanner scn){
+    public static void diffShape(Scanner scn, int numWalls){
         System.out.println("Which shape from the selection is the wall:\n1: Circle\n2: Triangle\nNote: Enter the number associated with the shape.");
         boolean bool = false;
         while(bool!=true){
@@ -94,6 +87,25 @@ public class Main {
                 default:
                     System.out.println("Please use the numbers associated with the shapes.");
             }
+        }
+        bool = false;
+        while (bool==false){
+            System.out.println("How many walls are this shape?");
+            if(scn.nextInt() > numWalls){
+                System.out.println("You aren't painting that many walls.");
+            }
+            else{
+                bool = true;
+                break;
+            }
+        }
+        numWalls -= scn.nextInt();
+        for(int i = 0; i < scn.nextInt(); i++){
+
+        }
+        System.out.println("Are there anymore walls that are not rectangular?   (Y/N)");
+        if(inputCheck(scn.next()).equals("Y")) {
+            diffShape(scn, numWalls);
         }
     }
 }
